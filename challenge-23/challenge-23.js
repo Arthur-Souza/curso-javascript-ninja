@@ -23,3 +23,96 @@ multiplicação (x), então no input deve aparecer "1+2x".
 input;
 - Ao pressionar o botão "CE", o input deve ficar zerado.
 */
+
+(function(win, doc) {
+  'use strict';
+
+  var $display = doc.querySelector('#display');
+  var $numberButton = doc.querySelectorAll('[data-js=button-number]');
+  var $operatorButton = doc.querySelectorAll('[data-js=button-operator]');
+  var $cleanButton = doc.querySelector('[data-js=button-clean]');
+  var $resultButton = doc.querySelector('[data-js=button-result]');
+  var calculatoStorage = '';
+
+  function isValidNumber(number) {
+    return /[\d]/.test(number);
+  }
+
+  function isValidOperator(operator) {
+    return /[\+\-\÷x]/.test(operator);
+  }
+
+  function startsWithNumbers(value) {
+    return /^\d/.test(value);
+  }
+
+  function isEndOperator(value) {
+    return /[\+\-\÷x]$/.test(value);
+  }
+
+  function displayOnScreen(value) {
+    $display.value = value;
+  }
+
+  function getNumber(event) {
+    event.preventDefault();
+
+    if (!isValidNumber(this.value))
+      return false;
+
+    calculatoStorage += this.value;
+    displayOnScreen(calculatoStorage);
+  }
+
+  function getOperator(event) {
+    event.preventDefault();
+
+    if (!isValidOperator(this.value) || !startsWithNumbers(calculatoStorage))
+      return false;
+
+    if (isEndOperator(calculatoStorage)) {
+      calculatoStorage = calculatoStorage.slice(0, -1);
+    }
+
+    calculatoStorage += this.value;
+    displayOnScreen(calculatoStorage);
+  }
+
+  function cleanScreen(event) {
+    event.preventDefault();
+
+    calculatoStorage = '';
+    displayOnScreen('0');
+  }
+
+  function result(event) {
+    event.preventDefault();
+
+    if(isEndOperator(calculatoStorage) && isValidOperator(calculatoStorage))
+      return false;
+
+    var calculato = calculatoStorage.replace(/([x\÷])/g, function(regex, arg1) {
+      if(arg1 === '÷')
+        return '/';
+
+      return '*';
+    })
+
+    calculatoStorage = eval(calculato);
+    displayOnScreen(calculatoStorage);
+  }
+
+  Array.prototype.forEach.call($numberButton, function(button) {
+    button.addEventListener('click', getNumber, false);
+  });
+
+  Array.prototype.forEach.call($operatorButton, function(button) {
+    button.addEventListener('click', getOperator, false);
+  });
+
+  $resultButton.addEventListener('click', result, false);
+
+  $cleanButton.addEventListener('click', cleanScreen, false)
+
+
+} (window, document))
