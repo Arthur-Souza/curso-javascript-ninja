@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Buscar CEP - Js Ninja</title>
+</head>
+<body>
+    <div class="search-cep">
+        <h1 class="search-cep__title">Pesquisar CEP</h1>
+        <form action="" method="get" class="search-cep__form" data-js="form-cep">
+            <input type="text" name="input-cep" id="input-cep" data-js="input-cep" value="41706820">
+            <button type="submit">Pesquisar</button>
+        </form>
+        <h3 class="search-cep__status" data-js="status"></h3>
+        <div class="search-cep__result">
+            <p><strong>Estado:</strong> <span data-js="estado">-</span></p>
+            <p><strong>Cidade:</strong> <span data-js="cidade">-</span></p>
+            <p><strong>Bairro:</strong> <span data-js="bairro">-</span></p>
+            <p><strong>Logradouro:</strong> <span data-js="logradouro">-</span></p>
+        </div>
+    </div>
+    <script src="./challenge-28.js"></script>
+</body>
+</html>
