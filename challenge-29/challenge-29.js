@@ -1,4 +1,4 @@
-(function() {
+(function(DOM) {
   'use strict';
 
   /*
@@ -36,4 +36,77 @@
   que será nomeado de "app".
   */
 
-})();
+  var app = (function() {
+    return {
+      init: function init() {
+        this.companyInfo();
+        this.initEvents();
+      },
+      initEvents: function initEvents() {
+        DOM('[data-js="form-register"]').on('submit', this.handleSubmit);
+      },
+      handleSubmit: function handleSubmit(event) {
+        event.preventDefault();
+        var $tableCar = DOM('[data-js="table-car"]').get();
+        $tableCar.appendChild(app.creatNewCar());
+        app.cleanForm();
+      },
+      creatNewCar: function creatNewCar() {
+        var $fragment = document.createDocumentFragment();
+        var $tr = document.createElement('tr');
+        var $tdImage = document.createElement('td');
+        var $image = document.createElement('img');
+        var $tdBrand = document.createElement('td');
+        var $tdYear = document.createElement('td');
+        var $tdPlate = document.createElement('td');
+        var $tdColor = document.createElement('td');
+
+        $image.src = DOM('#inputImage').get().value;
+        $image.className = 'img-thumbnail';
+        $tdImage.appendChild($image);
+
+        $tdBrand.textContent = DOM('#inputModelo').get().value;
+        $tdYear.textContent = DOM('#inputAno').get().value;
+        $tdPlate.textContent = DOM('#inputPlaca').get().value;
+        $tdColor.textContent = DOM('#inputCor').get().value;
+
+        $tr.appendChild($tdImage);
+        $tr.appendChild($tdBrand);
+        $tr.appendChild($tdYear);
+        $tr.appendChild($tdPlate);
+        $tr.appendChild($tdColor);
+
+        return $fragment.appendChild($tr);
+      },
+      cleanForm: function cleanForm() {
+        DOM('#inputImage').get().value = '';
+        DOM('#inputModelo').get().value = '';
+        DOM('#inputAno').get().value = '';
+        DOM('#inputPlaca').get().value = '';
+        DOM('#inputCor').get().value = '';
+      },
+      companyInfo: function companyInfo() {
+        var ajax = new XMLHttpRequest();
+        ajax.open('GET', './company.json', true);
+        ajax.send();
+        ajax.addEventListener('readystatechange', this.getCompanyInfo, false);
+      },
+      getCompanyInfo: function getCompanyInfo() {
+        if (!app.isReady.call(this)) return;
+
+        var data = JSON.parse(this.responseText);
+        var $companyName = DOM('[data-js="company-name"]');
+        var $companyPhone = DOM('[data-js="company-phone"]');
+
+        $companyName.get().textContent = data.name;
+        $companyPhone.get().textContent = data.phone;
+      },
+      isReady: function isReady() {
+        return this.readyState === 4 && this.status === 200;
+      }
+    };
+  })();
+
+  app.init();
+
+})(window.DOM);

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CarsNijas Company</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+  <style>
+    .cars-list th, .cars-list td {
+      vertical-align: middle!important;
+      text-align: center;
+    }
+    .list-container {
+      margin: 100px auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="jumbotron text-center">
+    <div class="container">
+      <h1 class="jumbotron-heading" data-js="company-name">CarsNijas Company</h1>
+      <p class="lead text-muted" data-js="company-phone">(55) 5142-5368</p>
+    </div>
+  </header>
+
+  <!-- Form -->
+  <div class="container">
+    <h3 class="text-center">Cadastro</h3>
+    <form action="" method="get" class="row justify-content-md-center" data-js="form-register">
+      <div class="col-sm-10 col-md-6">
+        <div class="form-group">
+          <label for="inputImage" class="col-form-label">Image <span class="text-danger">*</span></label>
+          <input type="url" class="form-control" name="inputImage" id="inputImage" placeholder="image url" required>
+        </div>
+        <div class="form-group">
+          <label for="inputModelo" class="col-form-label">Modelo / Marca <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" name="inputModelo" id="inputModelo" placeholder="Cadillac CTS-V" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-sm-4">
+              <label for="inputAno" class="col-form-label">Ano <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="inputAno" id="inputAno" placeholder="2017" required>
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="inputPlaca" class="col-form-label">Placa <span class="text-danger">*</span></label>
+              <input type="text" class="form-control" name="inputPlaca" id="inputPlaca" placeholder="ABC-1234" required>
+            </div>
+            <div class="form-group col-sm-4">
+                <label for="inputCor" class="col-form-label">Cor <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="inputCor" id="inputCor" placeholder="Preto" required>
+              </div>
+        </div>
+        <button type="submit" class="btn btn-dark">Enviar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- List -->
+  <div class="container list-container">
+    <table class="table cars-list">
+      <thead class="thead-inverse">
+        <tr>
+          <th class="w-25">Imagem</th>
+          <th class="w-20">Modelo / Marca</th>
+          <th class="w-20">Ano</th>
+          <th class="w-20">Placa</th>
+          <th class="w-20">Cor</th>
+        </tr>
+      </thead>
+      <tbody data-js="table-car">
+      </tbody>
+    </table>
+  </div>
+  <script src="./dom.js"></script>
+  <script src="./challenge-29.js"></script>
+
+</body>
+</html>
